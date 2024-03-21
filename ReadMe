@@ -1,0 +1,32 @@
+make / make default: 
+    -will create obj files and place them in the bin folder
+make clean:
+    -will delete all obj files and exicutables
+make run:
+    -will link all obj files in bin and compile the exicutable as a .out file
+
+if you want the program to stop on its own you must uncoment
+    -if(bufferIsEmpty(task)) return NULL; in ThreadPool.c
+and must comment 
+    -pthread_t input; // create thread to add items to buffer
+    -pthread_create(&input, NULL, &addBufferItems, (void*)&buffer);
+    in main. 
+
+
+project description:
+    struct: Task
+        - has a function pointer that points to some function
+        - with a signature of two int inputs and a void output
+    struct: TaskBuffer
+        - maintains the queue of Data and the information associated with it
+        - such as first and last index along with the necessary mutexes and 
+        - cond variables that allow the buffer to be thread safe
+
+    info:
+        - the project is a thread pool that allows for n number of 
+        - threads and n number of thread pools to be created along 
+        - with this the structure of the DataBuffer along with the 
+        - thread pool allows the pool to have run time polymorphism
+        - such that as long as a function has a signature of two int
+        - inputs and returns void it can be referenced in a Data object 
+        - and added to the DataBuffer object 
